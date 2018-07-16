@@ -1,0 +1,72 @@
+{
+	"name": "Docker Compose Network",
+	"x-networkId": "not-important",
+	"x-type": "hlfv1",
+	"description": "Connection Profile for an Hyperledger Fabric network on a local machine",
+	"version": "1.0.0",
+	"client": {
+		"organization": "Org1MSP",
+		"credentialStore": {
+			"path": "/Users/tonyblake/Desktop/marbles/fabric-samples/fabcar/hfc-key-store"
+		}
+	},
+	"channels": {
+		"mychannel": {
+			"orderers": [
+				"fabric-orderer"
+			],
+			"peers": {
+				"fabric-peer-org1": {
+					"x-chaincode": {}
+				}
+			},
+			"chaincodes": [
+				"marbles:v4"
+			],
+			"x-blockDelay": 10000
+		}
+	},
+	"organizations": {
+		"Org1MSP": {
+			"mspid": "Org1MSP",
+			"peers": [
+				"fabric-peer-org1"
+			],
+			"certificateAuthorities": [
+				"fabric-ca"
+			],
+			"x-adminCert": {
+				"path": "/Users/tonyblake/Desktop/marbles/fabric-samples/basic-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem"
+			},
+			"x-adminKeyStore": {
+				"path": "/Users/tonyblake/Desktop/marbles/fabric-samples/basic-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/"
+			}
+		}
+	},
+	"orderers": {
+		"fabric-orderer": {
+			"url": "grpc://192.168.99.100:7050"
+		}
+	},
+	"peers": {
+		"fabric-peer-org1": {
+			"url": "grpc://192.168.99.100:7051",
+			"eventUrl": "grpc://192.168.99.100:7053"
+		}
+	},
+	"certificateAuthorities": {
+		"fabric-ca": {
+			"url": "http://192.168.99.100:7054",
+			"httpOptions": {
+				"verify": true
+			},
+			"registrar": [
+				{
+					"enrollId": "admin",
+					"enrollSecret": "adminpw"
+				}
+			],
+			"caName": null
+		}
+	}
+}
